@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.2)
 
 # Install
 SET(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY true)
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/MultilinearInterpolation/MultilinearInterpolation DESTINATION include)
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/mlinterp/mlinterp ${PROJECT_SOURCE_DIR}/mlinterp/mlinterp.hpp DESTINATION include)
 
 # C++11
 SET(CMAKE_CXX_STANDARD 11)
@@ -11,7 +11,7 @@ SET(CMAKE_CXX_STANDARD 11)
 # Module path
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 
-# QuantPDE
+# mlinterp
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/mlinterp)
 
 # Set appropriate optimization flags
