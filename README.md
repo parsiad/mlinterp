@@ -97,13 +97,11 @@ In the 2d example, the interp routine assumes that the array ```zd``` is "ordere
 
 In particular, if ```i``` is the index associated with the x axis and ```j``` is the index associated with the y axis, ```n = j + i * nyd```  gives the index of the corresponding element in the ```zd``` array.
 
-This is referred to as the *natural order*, and it generalizes to arbitrary dimensions. If instead we wanted ```n = i + j * nxd```, we would use the *reverse natural order*, which can be invoked by using
+This is referred to as the *natural order*, and it generalizes to arbitrary dimensions. If instead we wanted ```n = i + j * nxd```, we would use the *reverse natural order*, which can be invoked by using instead
 
 ```
 interp<rnatord>(nd, ni, zd, zi, xd, xi, yd, yi);
 ```
-
-in lieu of the call to ```interp``` in the example.
 
 ### Custom orders
 
