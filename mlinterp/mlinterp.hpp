@@ -1,9 +1,6 @@
-/** @file */
-
 #include <cstddef>
 #include <limits>
 
-/** @namespace */
 namespace mlinterp {
 
 	// The user should never call anything in here directly
@@ -71,11 +68,11 @@ namespace mlinterp {
 	struct natord {
 		template <typename Index, Index Dimension>
 		static Index mux(const Index *nd, const Index *indices) {
-			Index index = 0, product = 1, i = 0;
+			Index index = 0, product = 1, i = Dimension - 1;
 			while(true) {
 				index += indices[i] * product;
-				if(i == Dimension - 1) { break; }
-				product *= nd[i++];
+				if(i == 0) { break; }
+				product *= nd[i--];
 			}
 			return index;
 		}
@@ -84,11 +81,11 @@ namespace mlinterp {
 	struct rnatord {
 		template <typename Index, Index Dimension>
 		static Index mux(const Index *nd, const Index *indices) {
-			Index index = 0, product = 1, i = Dimension - 1;
+			Index index = 0, product = 1, i = 0;
 			while(true) {
 				index += indices[i] * product;
-				if(i == 0) { break; }
-				product *= nd[--i];
+				if(i == Dimension - 1) { break; }
+				product *= nd[i++];
 			}
 			return index;
 		}
