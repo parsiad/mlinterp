@@ -1,5 +1,5 @@
 # mlinterp
-**mlinterp** is a fast C++ routine for multilinear interpolation.
+**mlinterp** is a fast C++ routine for linear interpolation in arbitrary dimensions (i.e., multilinear interpolation).
 
 ## Installing
 
