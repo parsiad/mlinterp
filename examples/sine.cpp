@@ -39,7 +39,7 @@ int main() {
 	for(int n = 0; n < ni; ++n) {
 		xi[n] = -M_PI + (2. * M_PI) / (ni - 1) * n;
 	}
-	interp<rnatord>(&nd, ni, yd, yi, xd, xi);
+	interp(&nd, ni, yd, yi, xd, xi);
 
 	// Print interpolated values
 	for(int n = 0; n < ni; ++n) {
