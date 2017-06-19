@@ -3,19 +3,18 @@
 
 ## Installing
 
-First, ensure that you have [CMake](https://cmake.org/) installed on your system. Then, execute the following commands to install the mlinterp library:
+### Quick and dirty
+
+mlinterp is a header-only library, meaning that the fastest way to use it is to copy the file ```mlinterp/mlinterp.hpp``` into your own project directory and include it using ```#include <mlinterp.hpp>```.
+
+### Clean install
+
+If you are on a UNIX-like system with CMake installed, you can download mlinterp and run the following commands (from the mlinterp project directory) to install it to your system:
 
 ```
-git clone https://github.com/parsiad/mlinterp.git
-cd mlinterp
 cmake .
-sudo make install
-```
-
-If you want to compile the examples, you can also execute:
-
-```
-make
+sudo make install # Run this to install
+make # Run this to compile examples
 ```
 
 ## Examples
@@ -24,7 +23,6 @@ make
 Let's interpolate y = sin(x) using 15 evenly-spaced data points on the interval [-pi, pi].
 
 ```c++
-#include <mlinterp>
 using namespace mlinterp;
 
 // Knots (xd) and values at the knots (yd)
@@ -55,7 +53,6 @@ interp(&nd, ni, yd, yi, xd, xi);
 Let's interpolate z = sin(x)cos(y) using 15 evenly-spaced points along the x axis and 15 evenly-spaced points along the y axis.
 
 ```c++
-#include <mlinterp>
 using namespace mlinterp;
 
 // Knots (xd times yd) and values at the knots (zd)
