@@ -22,25 +22,28 @@ make # Run this to compile examples
 ## Examples
 
 ### 1d
-Let's interpolate y = sin(x) using 15 evenly-spaced data points on the interval [-pi, pi].
+Let's interpolate y = sin(x) on the interval [-pi, pi] using 15 evenly-spaced data points.
 
 ```c++
 using namespace mlinterp;
+
+// End points
+constexpr double b = 3.14159265358979323846, a = -b;
 
 // Knots (xd) and values at the knots (yd)
 constexpr int nd = 15;
 double xd[nd];
 double yd[nd];
 for(int n = 0; n < nd; ++n) {
-	xd[n] = -M_PI + (2. * M_PI) / (nd - 1) * n;
-	yd[n] = std::sin(xd[n]);
+	xd[n] = a + (b - a) / (nd - 1) * n;
+	yd[n] = sin(xd[n]);
 }
 
 // Points at which to interpolate
 constexpr int ni = 100;
 double xi[ni];
 for(int n = 0; n < ni; ++n) {
-	xi[n] = -M_PI + (2. * M_PI) / (ni - 1) * n;
+	xi[n] = a + (b - a) / (ni - 1) * n;
 }
 
 // Perform interpolation
@@ -52,20 +55,23 @@ interp(&nd, ni, yd, yi, xd, xi);
 
 ### 2d
 
-Let's interpolate z = sin(x)cos(y) using 15 evenly-spaced points along the x axis and 15 evenly-spaced points along the y axis.
+Let's interpolate z = sin(x)cos(y) on the interval [-pi, pi] X [-pi, pi] using 15 evenly-spaced points along the x axis and 15 evenly-spaced points along the y axis.
 
 ```c++
 using namespace mlinterp;
+
+// End points
+constexpr double b = 3.14159265358979323846, a = -b;
 
 // Knots (xd times yd) and values at the knots (zd)
 constexpr int nxd = 15, nyd = 15, nd[] = { nxd, nyd };
 double xd[nxd];
 for(int i = 0; i < nxd; ++i) {
-	xd[i] = -M_PI + (2. * M_PI) / (nxd - 1) * i;
+	xd[i] = a + (b - a) / (nxd - 1) * i;
 }
 double yd[nyd];
 for(int j = 0; j < nyd; ++j) {
-	yd[j] = -M_PI + (2. * M_PI) / (nyd - 1) * j;
+	yd[j] = a + (b - a) / (nyd - 1) * j;
 }
 double zd[nxd * nyd];
 for(int i = 0; i < nxd; ++i) {
@@ -82,8 +88,8 @@ double yi[ni];
 for(int i = 0; i < m; ++i) {
 	for(int j = 0; j < m; ++j) {
 		const int n = j + i * m;
-		xi[n] = -M_PI + (2. * M_PI) / (m - 1) * i;
-		yi[n] = -M_PI + (2. * M_PI) / (m - 1) * j;
+		xi[n] = a + (b - a) / (m - 1) * i;
+		yi[n] = a + (b - a) / (m - 1) * j;
 	}
 }
 

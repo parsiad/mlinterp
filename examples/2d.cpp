@@ -2,8 +2,9 @@
 // 2d.cpp                                                                     //
 // ------                                                                     //
 //                                                                            //
-// Interpolates z = sin(x)cos(y) using 15 evenly-spaced points along the x    //
-// axis and 15 evenly-spaced points along the y axis.                         //
+// Interpolates z = sin(x)cos(y) on the interval [-pi, pi] X [-pi, pi] using  //
+// 15 evenly-spaced points along the x axis and 15 evenly-spaced points along //
+// the y axis.                                                                //
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <mlinterp>
@@ -12,24 +13,23 @@
 #include <iomanip>
 #include <iostream>
 
-#ifndef M_PI
-#define M_PI (3.14159265358979323846)
-#endif
-
 using namespace mlinterp;
 using namespace std;
 
 int main() {
 
+	// End points
+	constexpr double b = 3.14159265358979323846, a = -b;
+
 	// Knots (xd times yd) and values at the knots (zd)
 	constexpr int nxd = 15, nyd = 15, nd[] = { nxd, nyd };
 	double xd[nxd];
 	for(int i = 0; i < nxd; ++i) {
-		xd[i] = -M_PI + (2. * M_PI) / (nxd - 1) * i;
+		xd[i] = a + (b - a) / (nxd - 1) * i;
 	}
 	double yd[nyd];
 	for(int j = 0; j < nyd; ++j) {
-		yd[j] = -M_PI + (2. * M_PI) / (nyd - 1) * j;
+		yd[j] = a + (b - a) / (nyd - 1) * j;
 	}
 	double zd[nxd * nyd];
 	for(int i = 0; i < nxd; ++i) {
@@ -46,8 +46,8 @@ int main() {
 	for(int i = 0; i < m; ++i) {
 		for(int j = 0; j < m; ++j) {
 			const int n = j + i * m;
-			xi[n] = -M_PI + (2. * M_PI) / (m - 1) * i;
-			yi[n] = -M_PI + (2. * M_PI) / (m - 1) * j;
+			xi[n] = a + (b - a) / (m - 1) * i;
+			yi[n] = a + (b - a) / (m - 1) * j;
 		}
 	}
 

@@ -2,8 +2,8 @@
 // 1d.cpp                                                                     //
 // ------                                                                     //
 //                                                                            //
-// Interpolates y = sin(x) using 15 evenly-spaced data points on the interval //
-// [-pi, pi].                                                                 //
+// Interpolates y = sin(x) on the interval [-pi, pi] using 15 evenly-spaced   //
+// data points.                                                               //
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <mlinterp>
@@ -12,29 +12,28 @@
 #include <iomanip>
 #include <iostream>
 
-#ifndef M_PI
-#define M_PI (3.14159265358979323846)
-#endif
-
 using namespace mlinterp;
 using namespace std;
 
 int main() {
+
+	// End points
+	constexpr double b = 3.14159265358979323846, a = -b;
 
 	// Knots (xd) and values at the knots (yd)
 	constexpr int nd = 15;
 	double xd[nd];
 	double yd[nd];
 	for(int n = 0; n < nd; ++n) {
-		xd[n] = -M_PI + (2. * M_PI) / (nd - 1) * n;
-		yd[n] = std::sin(xd[n]);
+		xd[n] = a + (b - a) / (nd - 1) * n;
+		yd[n] = sin(xd[n]);
 	}
 
 	// Points at which to interpolate
 	constexpr int ni = 100;
 	double xi[ni];
 	for(int n = 0; n < ni; ++n) {
-		xi[n] = -M_PI + (2. * M_PI) / (ni - 1) * n;
+		xi[n] = a + (b - a) / (ni - 1) * n;
 	}
 
 	// Perform interpolation
