@@ -48,6 +48,8 @@ double yi[ni]; // Result is stored in this buffer
 interp(&nd, ni, yd, yi, xd, xi);
 ```
 
+![](https://raw.githubusercontent.com/parsiad/mlinterp/master/examples/1d.png)
+
 ### 2d
 
 Let's interpolate z = sin(x)cos(y) using 15 evenly-spaced points along the x axis and 15 evenly-spaced points along the y axis.
@@ -90,6 +92,8 @@ for(int i = 0; i < m; ++i) {
 double zi[ni]; // Result is stored in this buffer
 interp(nd, ni, zd, zi, xd, xi, yd, yi);
 ```
+
+![](https://raw.githubusercontent.com/parsiad/mlinterp/master/examples/2d.png)
 
 ## Orders
 
