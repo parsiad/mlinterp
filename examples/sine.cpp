@@ -1,3 +1,10 @@
+////////////////////////////////////////////////////////////////////////////////
+// sine.cpp
+// --------
+//
+// Interpolate sin(x) using evenly spaced points on [-pi, pi].
+////////////////////////////////////////////////////////////////////////////////
+
 #include <mlinterp>
 
 #include <cmath>
@@ -32,7 +39,7 @@ int main() {
 	for(int n = 0; n < ni; ++n) {
 		xi[n] = -M_PI + (2. * M_PI) / (ni - 1) * n;
 	}
-	mlinterp<double>(&nd, ni, yd, yi, xd, xi);
+	interp<rnatord>(&nd, ni, yd, yi, xd, xi);
 
 	// Print interpolated values
 	for(int n = 0; n < ni; ++n) {
