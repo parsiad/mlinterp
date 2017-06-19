@@ -50,7 +50,7 @@ interp(&nd, ni, yd, yi, xd, xi);
 
 ### 2d
 
-Let's interpolate z = sin(x)cos(y) using 15 evenly-spaced points along the x axis and 30 evenly-spaced points along the y axis.
+Let's interpolate z = sin(x)cos(y) using 15 evenly-spaced points along the x axis and 15 evenly-spaced points along the y axis.
 
 ```c++
 #include <mlinterp>
