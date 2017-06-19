@@ -93,9 +93,9 @@ interp(nd, ni, zd, zi, xd, xi, yd, yi);
 
 ## Orders
 
-In the 2d example, the interp routine assumes that zd is "ordered" in a certain way.
+In the 2d example, the interp routine assumes that the array ```zd``` is "ordered" in a certain way.
 
-In particular, if ```i``` is the index associated with the x axis and ```j``` is the index associated with the y axis, ```n = j + i * nyd```  gives the index of the corresponding element in the zd array.
+In particular, if ```i``` is the index associated with the x axis and ```j``` is the index associated with the y axis, ```n = j + i * nyd```  gives the index of the corresponding element in the ```zd``` array.
 
 This is referred to as the *natural order*, and it generalizes to arbitrary dimensions. If instead we wanted ```n = i + j * nxd```, we would use the *reverse natural order*, which can be invoked by using
 
