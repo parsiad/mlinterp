@@ -22,6 +22,7 @@
  * SOFTWARE.
 */
 
+#include <cassert>
 #include <cstddef>
 #include <limits>
 
@@ -33,7 +34,7 @@ namespace mlinterp {
 		template <typename T, typename...>
 		struct helper {
 			template <typename Index>
-			void run(const Index *, Index, Index, Index *, T &) {}
+			void run(const Index *, Index, Index *, T *) {}
 		};
 
 		template <typename T, typename T1, typename T2, typename... Args>
@@ -44,13 +45,16 @@ namespace mlinterp {
 			helper(T1 xd, T2 xi, Args... args) : helper<T, Args...>(args...), xd(xd), xi(xi) {}
 
 			template <typename Index>
-			void run(const Index *nd, Index n, Index bitstr, Index *indices, T &factor) {
+			void run(const Index *nd, Index n, Index *indices, T *weights) {
+				// Must have at least one point per axis
+				assert(*nd > 0);
+
 				const T x = xi[n];
 
-				T weight;
 				Index mid;
+				T weight;
 
-				if(x <= xd[0]) {
+				if(*nd == 1 || x <= xd[0]) {
 					// Data point is less than left boundary
 					mid = 0;
 					weight = 1.;
@@ -74,16 +78,11 @@ namespace mlinterp {
 					}
 				}
 
-				if(bitstr & 1) {
-					*indices = mid;
-					factor *= weight;
-				} else {
-					*indices = mid + 1;
-					factor *= 1 - weight;
-				}
+				*indices = mid;
+				*weights = weight;
 
 				helper<T, Args...> &base = (*this);
-				base.run(nd+1, n, bitstr >> 1, indices+1, factor);
+				base.run(nd+1, n, indices+1, weights+1);
 			}
 		};
 
@@ -117,6 +116,9 @@ namespace mlinterp {
 
 	template <typename Order = natord, typename... Args, typename T, typename Index>
 	static void interp(const Index *nd, Index ni, const T *yd, T *yi, Args... args) {
+		// Cannot have a negative number of points
+		assert(ni >= 0);
+
 		// Infer dimension from arguments
 		static_assert(sizeof...(Args) % 2 == 0, "needs 4+2*Dimension arguments");
 		constexpr Index Dimension = sizeof...(Args)/2;
@@ -128,14 +130,24 @@ namespace mlinterp {
 		detail::helper<T, Args...> h(args...);
 
 		// Perform interpolation for each point
-		Index indices[Dimension]; T factor;
+		Index indices[Dimension]; T weights[Dimension];
+		Index buffer[Dimension]; T factor;
 		for(Index n = 0; n < ni; ++n) {
 			yi[n] = 0.;
+			h.run(nd, n, indices, weights);
 			for(Index bitstr = 0; bitstr < Power; ++bitstr) {
 				factor = 1.;
-				h.run(nd, n, bitstr, indices, factor);
+				for(Index i = 0; i < Dimension; ++i) {
+					if(bitstr & (1 << i)) {
+						buffer[i] = indices[i];
+						factor *= weights[i];
+					} else {
+						buffer[i] = indices[i] + 1;
+						factor *= 1 - weights[i];
+					}
+				}
 				if(factor > std::numeric_limits<T>::epsilon()) {
-					const Index k = Order::template mux<Index, Dimension>(nd, indices);
+					const Index k = Order::template mux<Index, Dimension>(nd, buffer);
 					yi[n] += factor * yd[k];
 				}
 			}
