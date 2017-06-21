@@ -22,6 +22,9 @@
  * SOFTWARE.
 */
 
+#ifndef MLINTERP_HPP
+#define MLINTERP_HPP
+
 #include <cassert>
 #include <cstddef>
 #include <limits>
@@ -155,4 +158,6 @@ namespace mlinterp {
 	}
 
 }
+
+#endif
 
