@@ -3,7 +3,7 @@
 // ------                                                                     //
 //                                                                            //
 // Interpolates y = sin(x) on the interval [-pi, pi] using 15 evenly-spaced   //
-// data points.                                                               //
+// points.                                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <mlinterp>
@@ -17,10 +17,11 @@ using namespace std;
 
 int main() {
 
-	// End points
+	// Boundaries of the interval [-pi, pi]
 	constexpr double b = 3.14159265358979323846, a = -b;
 
-	// Knots (xd) and values at the knots (yd)
+	// Subdivide the interval [-pi, pi] using 15 evenly-spaced points and
+	// evaluate sin(x) at each of those points
 	constexpr int nxd = 15, nd[] = { nxd };
 	double xd[nxd];
 	double yd[nxd];
@@ -29,18 +30,23 @@ int main() {
 		yd[n] = sin(xd[n]);
 	}
 
-	// Points at which to interpolate
+	// Subdivide the interval [-pi, pi] using 100 evenly-spaced points
+	// (these are the points at which we interpolate)
 	constexpr int ni = 100;
 	double xi[ni];
 	for(int n = 0; n < ni; ++n) {
 		xi[n] = a + (b - a) / (ni - 1) * n;
 	}
 
-	// Perform interpolation
+	// Perform the interpolation
 	double yi[ni]; // Result is stored in this buffer
-	interp(nd, ni, yd, yi, xd, xi);
+	interp(
+		nd, ni, // Number of points
+		yd, yi, // Output axis (y)
+		xd, xi  // Input axis (x)
+	);
 
-	// Print interpolated values
+	// Print the interpolated values
 	cout << scientific << setprecision(8) << showpos;
 	for(int n = 0; n < ni; ++n) {
 		cout << xi[n] << "\t" << yi[n] << endl;

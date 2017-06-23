@@ -18,10 +18,12 @@ using namespace std;
 
 int main() {
 
-	// End points
+	// Boundaries of the interval [-pi, pi]
 	constexpr double b = 3.14159265358979323846, a = -b;
 
-	// Knots (xd times yd) and values at the knots (zd)
+	// Discretize the set [-pi, pi] X [-pi, pi] using 15 evenly-spaced
+	// points along the x axis and 15 evenly-spaced points along the y axis
+	// and evaluate sin(x)cos(y) at each of those points
 	constexpr int nxd = 15, nyd = 15, nd[] = { nxd, nyd };
 	double xd[nxd];
 	for(int i = 0; i < nxd; ++i) {
@@ -39,7 +41,9 @@ int main() {
 		}
 	}
 
-	// Points at which to interpolate
+	// Subdivide the set [-pi, pi] X [-pi, pi] using 100 evenly-spaced
+	// points along the x axis and 100 evenly-spaced points along the y axis
+	// (these are the points at which we interpolate)
 	constexpr int m = 100, ni = m * m;
 	double xi[ni];
 	double yi[ni];
@@ -51,11 +55,15 @@ int main() {
 		}
 	}
 
-	// Perform interpolation
+	// Perform the interpolation
 	double zi[ni]; // Result is stored in this buffer
-	interp(nd, ni, zd, zi, xd, xi, yd, yi);
+	interp(
+		nd, ni,        // Number of points
+		zd, zi,        // Output axis (z)
+		xd, xi, yd, yi // Input axes (x and y)
+	);
 
-	// Print interpolated values
+	// Print the interpolated values
 	cout << scientific << setprecision(8) << showpos;
 	for(int n = 0; n < ni; ++n) {
 		cout << xi[n] << "\t" << yi[n] << "\t" << zi[n] << endl;

@@ -27,10 +27,11 @@ Let's interpolate y = sin(x) on the interval [-pi, pi] using 15 evenly-spaced da
 ```c++
 using namespace mlinterp;
 
-// End points
+// Boundaries of the interval [-pi, pi]
 constexpr double b = 3.14159265358979323846, a = -b;
 
-// Knots (xd) and values at the knots (yd)
+// Subdivide the interval [-pi, pi] using 15 evenly-spaced points and
+// evaluate sin(x) at each of those points
 constexpr int nxd = 15, nd[] = { nxd };
 double xd[nxd];
 double yd[nxd];
@@ -39,16 +40,27 @@ for(int n = 0; n < nxd; ++n) {
 	yd[n] = sin(xd[n]);
 }
 
-// Points at which to interpolate
+// Subdivide the interval [-pi, pi] using 100 evenly-spaced points
+// (these are the points at which we interpolate)
 constexpr int ni = 100;
 double xi[ni];
 for(int n = 0; n < ni; ++n) {
 	xi[n] = a + (b - a) / (ni - 1) * n;
 }
 
-// Perform interpolation
+// Perform the interpolation
 double yi[ni]; // Result is stored in this buffer
-interp(nd, ni, yd, yi, xd, xi);
+interp(
+	nd, ni, // Number of points
+	yd, yi, // Output axis (y)
+	xd, xi  // Input axis (x)
+);
+
+// Print the interpolated values
+cout << scientific << setprecision(8) << showpos;
+for(int n = 0; n < ni; ++n) {
+	cout << xi[n] << "\t" << yi[n] << endl;
+}
 ```
 
 ![](https://raw.githubusercontent.com/parsiad/mlinterp/master/examples/1d.png)
@@ -60,10 +72,12 @@ Let's interpolate z = sin(x)cos(y) on the interval [-pi, pi] X [-pi, pi] using 1
 ```c++
 using namespace mlinterp;
 
-// End points
+// Boundaries of the interval [-pi, pi]
 constexpr double b = 3.14159265358979323846, a = -b;
 
-// Knots (xd times yd) and values at the knots (zd)
+// Discretize the set [-pi, pi] X [-pi, pi] using 15 evenly-spaced
+// points along the x axis and 15 evenly-spaced points along the y axis
+// and evaluate sin(x)cos(y) at each of those points
 constexpr int nxd = 15, nyd = 15, nd[] = { nxd, nyd };
 double xd[nxd];
 for(int i = 0; i < nxd; ++i) {
@@ -81,7 +95,9 @@ for(int i = 0; i < nxd; ++i) {
 	}
 }
 
-// Points at which to interpolate
+// Subdivide the set [-pi, pi] X [-pi, pi] using 100 evenly-spaced
+// points along the x axis and 100 evenly-spaced points along the y axis
+// (these are the points at which we interpolate)
 constexpr int m = 100, ni = m * m;
 double xi[ni];
 double yi[ni];
@@ -93,9 +109,19 @@ for(int i = 0; i < m; ++i) {
 	}
 }
 
-// Perform interpolation
+// Perform the interpolation
 double zi[ni]; // Result is stored in this buffer
-interp(nd, ni, zd, zi, xd, xi, yd, yi);
+interp(
+	nd, ni,        // Number of points
+	zd, zi,        // Output axis (z)
+	xd, xi, yd, yi // Input axes (x and y)
+);
+
+// Print the interpolated values
+cout << scientific << setprecision(8) << showpos;
+for(int n = 0; n < ni; ++n) {
+	cout << xi[n] << "\t" << yi[n] << "\t" << zi[n] << endl;
+}
 ```
 
 ![](https://raw.githubusercontent.com/parsiad/mlinterp/master/examples/2d.png)
