@@ -31,8 +31,7 @@
 
 namespace mlinterp {
 
-	// The user should never call anything in here directly
-	namespace detail {
+	namespace {
 
 		template <typename T, typename...>
 		struct helper {
@@ -130,7 +129,7 @@ namespace mlinterp {
 		constexpr Index Power = 1 << Dimension;
 
 		// Unpack arguments
-		detail::helper<T, Args...> h(args...);
+		helper<T, Args...> h(args...);
 
 		// Perform interpolation for each point
 		Index indices[Dimension]; T weights[Dimension];
@@ -160,4 +159,3 @@ namespace mlinterp {
 }
 
 #endif
-
