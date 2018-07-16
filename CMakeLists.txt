@@ -15,7 +15,6 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/mlinterp)
 
 # Set appropriate optimization flags
-# For debugging, use `cmake -DCMAKE_BUILD_TYPE=Debug .`
 SET(CMAKE_BUILD_TYPE Release)
 
 # Where to output binaries
