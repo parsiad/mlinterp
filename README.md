@@ -184,3 +184,12 @@ struct natord {
 	}
 };
 ```
+
+### Build and run tests
+
+Run the following commands (from the mlinterp project directory) to build and run tests:
+
+```
+cmake -DPACKAGE_TESTS=ON .
+make all test
+```
