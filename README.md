@@ -1,27 +1,37 @@
-# mlinterp
+# 📈 mlinterp
 **mlinterp** is a fast C++ routine for linear interpolation in arbitrary dimensions (i.e., multilinear interpolation).
 
 mlinterp is written by [Parsiad Azimzadeh](http://parsiad.ca) and released under a permissive MIT License. The latest release can be [downloaded here](https://github.com/parsiad/mlinterp/releases/latest).
 
-## Installing
+## 👷 Including mlinterp in your project
 
-### Quick and dirty
+### Method 1: Quick and dirty
 
-mlinterp is a header-only library, meaning that the fastest way to use it is to copy the file ```mlinterp/mlinterp.hpp``` into your own project directory and include it using ```#include <mlinterp.hpp>```.
+mlinterp is a header-only library, meaning that the quickest (albeit dirtiest) way to get started is to copy the file ```mlinterp/mlinterp.hpp``` into your own project directory and include it using ```#include "mlinterp.hpp"```.
 
-### Clean install
+### Method 2: Git submodule (preferred)
 
-If you are on a UNIX-like system with CMake installed, you can download mlinterp and run the following commands (from the mlinterp project directory) to install it to your system:
+If you are working on a Git project, adding mlinterp as a submodule is preferred.
+Doing so makes it easy to distribute your code and pick up new versions of mlinterp when they are released.
+
+If you are unfamiliar with submodules, you can [read about them in the online Git documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+
+### Method 3: System-wide install
+
+Run the following commands (from the mlinterp project directory) to install it to your system:
 
 ```
 cmake .
 sudo make install # Run this to install
-make # Run this to compile examples
+make # Run this to compile tests
 ```
 
-## Examples
+You can now include it using ```#include <mlinterp>```.
+
+## 🧑‍🏫 Examples
 
 ### 1d
+
 Let's interpolate y = sin(x) on the interval [-pi, pi] using 15 evenly-spaced data points.
 
 ```c++
@@ -63,7 +73,10 @@ for(int n = 0; n < ni; ++n) {
 }
 ```
 
-![](https://raw.githubusercontent.com/parsiad/mlinterp/master/examples/1d.png)
+![](https://raw.githubusercontent.com/parsiad/mlinterp/master/images/1d.png)
+
+Note that the points **do not have to be evenly spaced**.
+Try modifying the above to use a non-uniform grid!
 
 ### 2d
 
@@ -124,11 +137,28 @@ for(int n = 0; n < ni; ++n) {
 }
 ```
 
-![](https://raw.githubusercontent.com/parsiad/mlinterp/master/examples/2d.png)
+![](https://raw.githubusercontent.com/parsiad/mlinterp/master/images/2d.png)
 
-## Orders
+Note that the *x* and *y* axes **do not have to be identical**: they can each have any number of unequally spaced points.
+Try modifying the above to use different *x* and *y* axes!
 
-In the 2d example, the interp routine assumes that the array ```zd``` is "ordered" in a certain way.
+### Higher dimensions (3d, 4d, ...)
+
+In general, if you have *k* dimensions with axes *x1*, *x2*, ..., *xk*, the `interp` routine is called as follows:
+
+```c++
+interp(
+	nd,  ni,                          // Number of points
+	yd,  yi,                          // Output axis
+	x1d, x1i, x2d, x2i, ..., xkd, xki // Input axes
+);
+```
+
+## 🦸 Advanced
+
+### Orders
+
+In the 2d example, the `interp` routine assumes that the array ```zd``` is "ordered" in a certain way.
 
 In particular, if ```i``` is the index associated with the x axis and ```j``` is the index associated with the y axis, ```n = j + i * nyd```  gives the index of the corresponding element in the ```zd``` array.
 
@@ -137,8 +167,6 @@ This is referred to as the *natural order*, and it generalizes to arbitrary dime
 ```c++
 interp<rnatord>(nd, ni, zd, zi, xd, xi, yd, yi);
 ```
-
-### Custom orders
 
 You are free to define your own ordering scheme. To get a sense of how to do this, it's easiest to study the code for the natural order:
 

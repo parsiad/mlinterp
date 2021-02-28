@@ -1,2 +1,0 @@
-ADD_EXECUTABLE(1d 1d.cpp)
-ADD_EXECUTABLE(2d 2d.cpp)

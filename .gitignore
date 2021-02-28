@@ -1,6 +1,9 @@
+*.cmake
 bin/
-.DS_Store
 CMakeCache.txt
 CMakeFiles/
+.DS_Store
+lib/
 Makefile
-cmake_install.cmake
+tests/googletest/
+Testing/
