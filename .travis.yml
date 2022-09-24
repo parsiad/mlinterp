@@ -1,0 +1,3 @@
+language: cpp
+script:
+  - cmake -DPACKAGE_TESTS=ON . && cmake --build . --target all && cmake --build . --target test
