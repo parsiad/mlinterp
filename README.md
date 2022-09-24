@@ -1,4 +1,4 @@
-# 📈 mlinterp
+# 📈 mlinterp ![](https://app.travis-ci.com/parsiad/mlinterp.svg?branch=master)
 **mlinterp** is a fast C++ routine for linear interpolation in arbitrary dimensions (i.e., multilinear interpolation).
 
 mlinterp is written by [Parsiad Azimzadeh](http://parsiad.ca) and released under a permissive MIT License. The latest release can be [downloaded here](https://github.com/parsiad/mlinterp/releases/latest).
