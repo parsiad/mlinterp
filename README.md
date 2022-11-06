@@ -1,4 +1,6 @@
-# 📈 mlinterp ![](https://app.travis-ci.com/parsiad/mlinterp.svg?branch=master)
+![](https://github.com/parsiad/mlinterp/actions/workflows/build.yml/badge.svg)
+
+# 📈 mlinterp
 **mlinterp** is a fast C++ routine for linear interpolation in arbitrary dimensions (i.e., multilinear interpolation).
 
 mlinterp is written by [Parsiad Azimzadeh](http://parsiad.ca) and released under a permissive MIT License. The latest release can be [downloaded here](https://github.com/parsiad/mlinterp/releases/latest).
@@ -22,8 +24,7 @@ Run the following commands (from the mlinterp project directory) to install it t
 
 ```
 cmake .
-sudo make install # Run this to install
-make # Run this to compile tests
+sudo make install
 ```
 
 You can now include it using ```#include <mlinterp>```.
@@ -185,11 +186,3 @@ struct natord {
 };
 ```
 
-### Build and run tests
-
-Run the following commands (from the mlinterp project directory) to build and run tests:
-
-```
-cmake -DPACKAGE_TESTS=ON .
-make all test
-```
