@@ -1,0 +1,16 @@
+name: build
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: jwlawson/actions-setup-cmake@v1.13
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    - run: cmake . && cmake --build . && ctest .
