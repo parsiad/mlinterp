@@ -3,6 +3,7 @@
 </p>
 
 ![](https://github.com/parsiad/mlinterp/actions/workflows/build.yml/badge.svg)
+![https://github.com/parsiad/mlinterp](https://img.shields.io/badge/github-%23121011.svg?logo=github)
 
 **mlinterp** is a fast C++ routine for linear interpolation in arbitrary dimensions (i.e., multilinear interpolation).
 
