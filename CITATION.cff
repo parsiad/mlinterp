@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+authors:
+  - family-names: Azimzadeh
+    given-names: Parsiad
+date-released: 2017-06-18
+title: "mlinterp"
+url: https://github.com/parsiad/mlinterp
