@@ -1,6 +1,9 @@
+<p align="center">
+  <img alt="mlinterp" src="https://github.com/parsiad/mlinterp/blob/master/logo.png?raw=true">
+</p>
+
 ![](https://github.com/parsiad/mlinterp/actions/workflows/build.yml/badge.svg)
 
-# 📈 mlinterp
 **mlinterp** is a fast C++ routine for linear interpolation in arbitrary dimensions (i.e., multilinear interpolation).
 
 mlinterp is written by [Parsiad Azimzadeh](http://parsiad.ca) and released under a permissive MIT License. The latest release can be [downloaded here](https://github.com/parsiad/mlinterp/releases/latest).
