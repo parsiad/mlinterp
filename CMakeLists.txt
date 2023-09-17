@@ -21,3 +21,14 @@ if(PACKAGE_TESTS)
   INCLUDE(GoogleTest)
   ADD_SUBDIRECTORY(tests)
 endif()
+
+# Add the mlinterp.cpp file to your project
+ADD_LIBRARY(mlinterp SHARED "${PROJECT_SOURCE_DIR}/mlinterp/mlinterp.cpp")
+
+# Specify the library output name and destination based on the platform
+SET_TARGET_PROPERTIES(mlinterp PROPERTIES OUTPUT_NAME "mlinterp")
+INSTALL(TARGETS mlinterp LIBRARY DESTINATION lib)
+
+# Make sure to include the directory containing mlinterp.hpp
+# TARGET_INCLUDE_DIRECTORIES(mlinterp PUBLIC "${PROJECT_SOURCE_DIR}/mlinterp")
+
